@@ -11,6 +11,11 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 exports.postComment = functions.https.onCall(async (data, context) => {
+    checkAuthentication(context);
+    dataValidator(data, {
+        bookId: 'string',
+        text: 'string'
+    })
 
     const db = admin.firestore();
     const snapshot = await db
@@ -26,3 +31,27 @@ exports.postComment = functions.https.onCall(async (data, context) => {
         book: db.collection('books').doc(data.bookId)
     })
 });
+
+function dataValidator(data, validKeys) {
+    if(Object.keys(data).length !== Object.keys(validKeys).length) {
+        throw new functions.https.HttpsError(
+            'invalid-argument',
+            'Data object contains invalid number of properties'
+        )
+    } else {
+        for (let key in data) {
+            if(!validKeys[key] || typeof data[key] !== validKeys[key]) {
+                throw new functions.https.HttpsError(
+                    'invalid-argument',
+                    'Data object contains invalid properties'
+                )
+            }
+        }
+    }
+}
+
+function checkAuthentication(context) {
+    if(!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'You must be logged in to use this feature')
+    }
+}
