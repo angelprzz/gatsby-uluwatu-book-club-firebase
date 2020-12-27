@@ -34,6 +34,11 @@ exports.createPublicProfile = functions.https.onCall(async (data, context) => {
         );
     }
 
+    const user = await admin.auth().getUser(context.auth.uid);
+    if(user.email === functions.config().accounts.admin) {
+        await admin.auth().setCustomUserClaims(context.auth.uid, { admin: true })
+    }
+
     return admin.firestore().collection('publicProfiles').doc(data.username).set({
         userId: context.auth.uid
     })
