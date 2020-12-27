@@ -23,7 +23,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../uluwatu-book-club" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -43,7 +43,7 @@
       <workItem from="1609029601463" duration="654000" />
       <workItem from="1609030288667" duration="467000" />
       <workItem from="1609067962052" duration="377000" />
-      <workItem from="1609073521986" duration="464000" />
+      <workItem from="1609073521986" duration="2820000" />
     </task>
     <servers />
   </component>
