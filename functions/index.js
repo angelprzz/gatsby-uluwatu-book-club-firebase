@@ -40,7 +40,8 @@ exports.createBook = functions.https.onCall(async (data, context) => {
     dataValidator(data,  {
         bookName: 'string',
         authorId: 'string',
-        bookCover: 'string'
+        bookCover: 'string',
+        summary: 'string',
     })
     const mimeType = data.bookCover.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/)[1];
     const base64EncodedImageString = data.bookCover.replace(/^data:image\/\w+;base64,/, '');
@@ -54,7 +55,8 @@ exports.createBook = functions.https.onCall(async (data, context) => {
     return admin.firestore().collection('books').add({
         title: data.bookName,
         imageUrl: fileUrl,
-        author: admin.firestore().collection('authors').doc(data.authorId)
+        author: admin.firestore().collection('authors').doc(data.authorId),
+        summary: data.summary,
     })
 
 })
