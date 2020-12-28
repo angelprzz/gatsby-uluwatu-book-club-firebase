@@ -1,14 +1,10 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const mimeTypes = require('mimetypes')
+const axios = require('axios')
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const { BUILD_HOOK } = require('../config')
+
 admin.initializeApp();
 
 exports.createAuthor = functions.https.onCall(async (data, context) => {
@@ -57,6 +53,8 @@ exports.createBook = functions.https.onCall(async (data, context) => {
         imageUrl: fileUrl,
         author: admin.firestore().collection('authors').doc(data.authorId),
         summary: data.summary,
+    }).then(() => {
+        return axios.post(BUILD_HOOK)
     })
 
 })
